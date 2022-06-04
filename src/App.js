@@ -1,24 +1,55 @@
-import logo from './logo.svg';
-import './App.css';
+import styled from "styled-components";
+import Controllers from "./Components/Controllers";
+import { useEffect, useState } from "react";
+import { getPlaylist } from "./services/routes";
+import Loader from "./Components/Loader";
+import { AiOutlineGithub, AiOutlineLinkedin, AiOutlineTwitter, AiOutlineInstagram, AiOutlineHeart } from 'react-icons/ai';
+
+
+const Player = styled.div`
+  background: #282f38;
+  width: 20em;
+  height: 28em;
+  box-shadow: 33px 33px 66px #20252c, -33px -33px 66px #303944;
+  border-radius: 50px;
+`;
+
+const Git = styled.div`
+  text-align: center;
+  color: #455870;
+  margin-top: 1em;
+`;
+
+const SocialLink = styled.a`
+  cursor: pointer;
+  color: #455870;
+
+  &:hover{
+    color: #2d4766;
+  }
+`;
 
 function App() {
+
+  const [playlist, setPlaylist] = useState([{}])
+
+  useEffect(() => {
+    getPlaylist().then((response) => setPlaylist(response))
+  }, [])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+    <Player>
+      { playlist.length > 1 ? <Controllers playlist={playlist}/> : <Loader/>}
+    </Player>
+      <Git>
+        <p style={{ fontSize: "0.7em" }}>made with <AiOutlineHeart style={{ color: "red"}}/> by Emile Nascivet :) </p>
+        <SocialLink href="https://github.com/emilenasc" target="_blank"><AiOutlineGithub/></SocialLink>
+        <SocialLink href="https://www.linkedin.com/in/emile-nascivet/" target="_blank"><AiOutlineLinkedin/></SocialLink>
+        <SocialLink href="https://twitter.com/Pok3mile" target="_blank"><AiOutlineTwitter/></SocialLink>
+        <SocialLink href="https://www.instagram.com/emilenascivet/" target="_blank"><AiOutlineInstagram/></SocialLink>
+      </Git>
+    </>
   );
 }
 
