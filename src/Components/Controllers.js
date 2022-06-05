@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { FiPlay, FiSkipForward, FiSkipBack, FiPause, FiYoutube } from "react-icons/fi";
 
@@ -87,7 +87,10 @@ const Controllers = ({ playlist }) => {
   // -------------------------- EVENT -----------------------------
   // --------------------------------------------------------------
 
+  // Pour remettre le bouton play lorsque la chanson est terminée
   useEffect(() => {
+    // Je set le timeout sur 32 secondes car chaque piste ne contient que 30 secondes de la chanson
+    // mais peut etre remplacé par une variable de durée contenue dans chacun des objets de chanson
     setTimeout(() => {
       if (!play) {
         setPlay(true)

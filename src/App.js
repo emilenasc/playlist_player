@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import Controllers from "./Components/Controllers";
 import { useEffect, useState } from "react";
-import { getPlaylist } from "./services/routes";
 import Loader from "./Components/Loader";
 import { AiOutlineGithub, AiOutlineLinkedin, AiOutlineTwitter, AiOutlineInstagram, AiOutlineHeart } from 'react-icons/ai';
+import data from './services/data'
 
 
 const Player = styled.div`
@@ -34,7 +34,7 @@ function App() {
   const [playlist, setPlaylist] = useState([{}])
 
   useEffect(() => {
-    getPlaylist().then((response) => setPlaylist(response))
+    setPlaylist(data)
   }, [])
 
   return (
